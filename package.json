@@ -17,6 +17,10 @@
       "import": "./dist/components/my-component.js",
       "types": "./dist/components/my-component.d.ts"
     },
+    "./reusable-grid": {
+      "import": "./dist/components/reusable-grid.js",
+      "types": "./dist/components/reusable-grid.d.ts"
+    },
     "./loader": {
       "import": "./loader/index.js",
       "require": "./loader/index.cjs",
