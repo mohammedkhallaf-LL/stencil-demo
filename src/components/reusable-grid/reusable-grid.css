@@ -1,0 +1,157 @@
+:host {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  width: 100%;
+}
+
+.grid-wrapper {
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+thead th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Sorting */
+.sortable {
+  cursor: pointer;
+}
+
+.sortable:hover {
+  background-color: #e9ecef;
+}
+
+.sort-icon {
+  margin-left: 8px;
+  color: #aaa;
+  display: inline-block;
+}
+
+.sort-icon.asc {
+  color: #333;
+}
+
+.sort-icon.desc {
+  color: #333;
+  transform: rotate(180deg);
+}
+
+/* Filtering */
+.filter-row input,
+.filter-row select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Pagination */
+.pagination-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.pagination-info {
+  color: #555;
+  font-size: 0.9em;
+}
+
+.pagination-controls button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.pagination-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+.pagination-controls span {
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 40px;
+  color: #777;
+  font-size: 1.1em;
+}
+
+/* Action Dropdown Styling (mimicking original) */
+/* This part is rendered via innerHTML, so we use global-style selectors. */
+/* You would place these styles in your main stylesheet, not the component's shadow DOM. */
+/* For demonstration, I am including them here. */
+.ll-actions-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.ll-actions-dropdown ul {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+}
+
+.ll-actions-dropdown:hover ul {
+  display: block;
+}
+
+.ll-actions-dropdown ul li a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.ll-actions-dropdown ul li a:hover {
+  background-color: #f1f1f1;
+}

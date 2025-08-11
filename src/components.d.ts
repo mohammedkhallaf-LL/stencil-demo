@@ -5,7 +5,18 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ApiResponse } from "./components/ll-form-submits-data/types";
+import { ActionEventPayload, ColumnDef, DataRequestPayload } from "./components/reusable-grid/reusable-grid";
+export { ApiResponse } from "./components/ll-form-submits-data/types";
+export { ActionEventPayload, ColumnDef, DataRequestPayload } from "./components/reusable-grid/reusable-grid";
 export namespace Components {
+    interface LlFormSubmitsData {
+        /**
+          * Public method to load data from an external source (our PHP page). This replaces the internal fetchData logic.
+          * @param data The complete dataset for the grid.
+         */
+        "loadData": (data: ApiResponse) => Promise<void>;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -20,19 +31,78 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface ReusableGrid {
+        /**
+          * An array of column definitions that describe the grid's structure.
+          * @default []
+         */
+        "columns": ColumnDef[];
+        /**
+          * The current active page. Can be modified by the component's pagination controls.
+          * @default 1
+         */
+        "currentPage": number;
+        /**
+          * An array of data objects to be displayed in the grid. Each object should have keys that match the 'id' in the ColumnDef.
+          * @default []
+         */
+        "data": any[];
+        /**
+          * The number of items to display per page.
+          * @default 25
+         */
+        "itemsPerPage": number;
+        /**
+          * The total number of items available on the server. Used for pagination.
+          * @default 0
+         */
+        "totalItems": number;
+    }
+}
+export interface ReusableGridCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLReusableGridElement;
 }
 declare global {
+    interface HTMLLlFormSubmitsDataElement extends Components.LlFormSubmitsData, HTMLStencilElement {
+    }
+    var HTMLLlFormSubmitsDataElement: {
+        prototype: HTMLLlFormSubmitsDataElement;
+        new (): HTMLLlFormSubmitsDataElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLReusableGridElementEventMap {
+        "dataRequest": DataRequestPayload;
+        "rowAction": ActionEventPayload;
+    }
+    interface HTMLReusableGridElement extends Components.ReusableGrid, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLReusableGridElementEventMap>(type: K, listener: (this: HTMLReusableGridElement, ev: ReusableGridCustomEvent<HTMLReusableGridElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLReusableGridElementEventMap>(type: K, listener: (this: HTMLReusableGridElement, ev: ReusableGridCustomEvent<HTMLReusableGridElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLReusableGridElement: {
+        prototype: HTMLReusableGridElement;
+        new (): HTMLReusableGridElement;
+    };
     interface HTMLElementTagNameMap {
+        "ll-form-submits-data": HTMLLlFormSubmitsDataElement;
         "my-component": HTMLMyComponentElement;
+        "reusable-grid": HTMLReusableGridElement;
     }
 }
 declare namespace LocalJSX {
+    interface LlFormSubmitsData {
+    }
     interface MyComponent {
         /**
           * The first name
@@ -47,15 +117,54 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface ReusableGrid {
+        /**
+          * An array of column definitions that describe the grid's structure.
+          * @default []
+         */
+        "columns"?: ColumnDef[];
+        /**
+          * The current active page. Can be modified by the component's pagination controls.
+          * @default 1
+         */
+        "currentPage"?: number;
+        /**
+          * An array of data objects to be displayed in the grid. Each object should have keys that match the 'id' in the ColumnDef.
+          * @default []
+         */
+        "data"?: any[];
+        /**
+          * The number of items to display per page.
+          * @default 25
+         */
+        "itemsPerPage"?: number;
+        /**
+          * Event emitted when data needs to be refetched due to sorting, filtering, or pagination. The parent application should listen for this event to make an API call.
+         */
+        "onDataRequest"?: (event: ReusableGridCustomEvent<DataRequestPayload>) => void;
+        /**
+          * Event emitted when a user clicks an action within a row (e.g., 'edit', 'delete').
+         */
+        "onRowAction"?: (event: ReusableGridCustomEvent<ActionEventPayload>) => void;
+        /**
+          * The total number of items available on the server. Used for pagination.
+          * @default 0
+         */
+        "totalItems"?: number;
+    }
     interface IntrinsicElements {
+        "ll-form-submits-data": LlFormSubmitsData;
         "my-component": MyComponent;
+        "reusable-grid": ReusableGrid;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "ll-form-submits-data": LocalJSX.LlFormSubmitsData & JSXBase.HTMLAttributes<HTMLLlFormSubmitsDataElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "reusable-grid": LocalJSX.ReusableGrid & JSXBase.HTMLAttributes<HTMLReusableGridElement>;
         }
     }
 }
