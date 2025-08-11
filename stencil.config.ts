@@ -20,7 +20,12 @@ export const config: Config = {
       serviceWorker: null, // disable service workers
     },
   ],
+  bundles: [
+    {
+      components: ['reusable-grid'],
+    },
+  ],
   testing: {
-    browserHeadless: "shell",
+    browserHeadless: 'shell',
   },
 };
