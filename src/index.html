@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
 
-    <script type="module" src="/build/stencil-demo.esm.js"></script>
-    <script nomodule src="/build/stencil-demo.js"></script>
-  </head>
-  <body>
-    <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
-    <reusable-grid></reusable-grid>
-  </body>
+  <script type="module" src="/build/stencil-demo.esm.js"></script>
+  <script nomodule src="/build/stencil-demo.js"></script>
+</head>
+<body>
+<reusable-grid></reusable-grid>
+
+<script>
+  const grid = document.querySelector('reusable-grid');
+  grid.columns = [
+    { header: 'Name', id: 'name' },
+    { header: 'Email', id: 'email' },
+    { header: 'Company', id: 'company' },
+  ];
+  grid.data = [
+    { id: 1, name: 'John Doe', email: 'john.doe@example.com', company: 'Example Inc.' },
+    { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', company: 'Test Corp.' },
+    { id: 3, name: 'Peter Jones', email: 'peter.jones@example.com', company: 'Another Co.' },
+  ];
+  grid.totalItems = 3;
+  grid.itemsPerPage = 10;
+  grid.currentPage = 1;
+</script>
+</body>
 </html>
