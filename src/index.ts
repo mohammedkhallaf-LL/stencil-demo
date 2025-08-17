@@ -8,5 +8,8 @@
  * to consume components of this package as outlined in the `README.md`.
  */
 
+import '@stencil/router';
+
+export * from './components'
 export { format } from './utils/utils';
 export type * from './components.d.ts';
